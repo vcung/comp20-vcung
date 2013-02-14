@@ -1,3 +1,10 @@
- #background {
- display:none;
-  }
+#background {
+    display:none;
+}
+  
+#bg{
+     margin-left: auto;
+     margin-right: auto;
+     display: block;
+}
+
