@@ -17,6 +17,8 @@ function draw_bg() {
     }
 }
 
+//draws the stats at the bottom of the game
+//including lives left, level, score, and highscore
 function draw_stats(numFrogs, lvl, score, highsc) {
     for (i=0; i<numFrogs; i++){
 	    ctx.drawImage(sprites, 12, 333, 18, 24, i*18, 511, 18, 24);
@@ -29,17 +31,24 @@ function draw_stats(numFrogs, lvl, score, highsc) {
 	);
 
 }
+
+//draws the frog the player controls
 function draw_frog(x, y){
-   sprites.onloadctx.drawImage(sprites, 11, 369, 24, 17, 165 +x, 481 + y, 24, 17);
+   ctx.drawImage(sprites, 11, 369, 24, 17, 165 + x, 481 + y, 24, 17);
  
 }
+
+//draws the cars
 function draw_cars(){
     ctx.drawImage(sprites, 81, 264, 24, 25, 202, 328, 24, 25);
 	ctx.drawImage(sprites, 105, 303, 47, 16, 232, 340, 47, 16);
 }
+
+//draws the logs
 function draw_logs() {
     ctx.drawImage(sprites, 6, 228, 85, 24, 40, 112, 85, 24);
 }
+
 //initiates game
 function start_game() {
     canvas = document.getElementById("game");
@@ -55,8 +64,17 @@ function start_game() {
 		draw_cars();
 		draw_logs();
         draw_frog(0, 0);
-		window.onload.draw_frog(0);
+		window.onload.draw_frog(0, 0);
+		set_speeds();
     } else {
         alert('Sorry, canvas is not supported on your browser!');
     }
+}
+
+function set_speeds() {
+    delay = 70;
+	setsInterval(draw_cars, delay);
+	setsInterval(draw_logs, delay);
+	
+
 }
