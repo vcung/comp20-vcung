@@ -34,8 +34,7 @@ function draw_stats(numFrogs, lvl, score, highsc) {
 
 //draws the frog the player controls
 function draw_frog(x, y){
-   ctx.drawImage(sprites, 11, 369, 24, 17, 165 + x, 481 + y, 24, 17);
- 
+   frog = ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 521 + y, 24, 17);
 }
 
 //draws the cars
@@ -64,7 +63,7 @@ function start_game() {
 		draw_cars();
 		draw_logs();
         draw_frog(0, 0);
-		window.onload.draw_frog(0, 0);
+		window.onload.draw_bg();
 		set_speeds();
     } else {
         alert('Sorry, canvas is not supported on your browser!');
