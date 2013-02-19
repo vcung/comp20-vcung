@@ -1,1 +1,5 @@
-some of parsing code copied from https://github.com/douglascrockford/JSON-js/blob/master/json2.js
+Everything is implemented correctly to the best of my knowledge.
+
+I did not collaborate with anyone on this lab.
+
+Approximate time spent: 3 hours
