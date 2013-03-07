@@ -1,0 +1,8 @@
+The switch statement located in station_info.js that hard-codes the name of the station and its 
+longitudes and latitudes does not work. I didn't have time to find 
+another way to compare strings.
+Since I could not get the longitudes and latitudes, I could not display
+the location of the stations.
+Used some code from examples in github.com/tuftsdev.webprogramming
+Approximate time spent: 6 hours
+
