@@ -1,6 +1,5 @@
  function getHardCodedInfo(station) {
     switch (station.platform) {
-}
         case "RALEN":
             station.name = "Alewife Station";
             station.lat = 42.39543;
@@ -136,4 +135,5 @@
             station.lat = 42.39674;
             station.lng = -71.1218;
             break;
+	}
 }

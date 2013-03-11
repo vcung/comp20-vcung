@@ -55,7 +55,7 @@ function findStops() {
    request.onreadystatechange = callback;
 }
 // Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
-function callback(results, status)
+function callback()
 {
     if(request.readyState == 4) {
         var str = request.responseText;
@@ -73,7 +73,6 @@ function parseRedlineInfo(str) {
 }
 function createRedlineMarkers() {
     route = [];
-    places = results;
     stop = new Array(parsed.length);
     for (i in parsed) {
         stop[i] = new Object;
@@ -102,7 +101,7 @@ function createMarker(place)
 
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.close();
-        infowindow.setContent(place.name);
+        infowindow.setContent("The closest station is " + place.name);
         infowindow.open(map, this);
     });
 }
