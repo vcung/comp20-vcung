@@ -9,12 +9,10 @@ function fill_bg() {
 
 //draws the background: The purple street, the green finish line, & the title
 function draw_bg() {
-    sprites.onload = function () {
-        title = ctx.drawImage(sprites, 13, 11, 321, 34, 0, 0, 399, 34);
-        greenTop = ctx.drawImage(sprites, 0, 53, 399, 56, 0, 53, 399, 53);
-        purpleTop = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 272, 399, 37);
-		purpleBot = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);
-    }
+    title = ctx.drawImage(sprites, 13, 11, 321, 34, 0, 0, 399, 34);
+    greenTop = ctx.drawImage(sprites, 0, 53, 399, 56, 0, 53, 399, 53);
+    purpleTop = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 272, 399, 37);
+	purpleBot = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);
 }
 
 //draws the stats at the bottom of the game
@@ -25,7 +23,7 @@ function draw_stats(numFrogs, lvl, score, highsc) {
         }
 		ctx.fillStyle = "green";
 		ctx.font = "bold 20px Arial";
-		ctx.fillText("Level "+ lvl, 64, 529);
+		ctx.fillText("Level "+ lvl, 324, 529);
 		ctx.fillText("Score: "+ score, 2, 560);
 		ctx.fillText("Highscore: "+highsc, 100, 560
 	);
@@ -49,31 +47,39 @@ function draw_logs() {
 }
 
 //initiates game
-function start_game() {
+function init_game() {
     canvas = document.getElementById("game");
         // Check if canvas is supported on browser
     if (canvas.getContext) {
-	    lives = 2;
         ctx = canvas.getContext('2d');
+		lives = 5;
         sprites = new Image();
         sprites.src = "assets/frogger_sprites.png";
-        fill_bg();
-        draw_bg();
-		draw_stats(lives, 1, 0, 0);
-		draw_cars();
-		draw_logs();
-        draw_frog(0, 0);
-		window.onload.draw_bg();
-		set_speeds();
+	
+        sprites.onload = function () {
+			fill_bg();
+            draw_bg();
+		    draw_stats(lives, 1, 0, 0);
+		    draw_cars();
+		    draw_logs();
+            draw_frog(0, 0);
+	    	set_speeds();
+		    start_game(lives);	
+		}
     } else {
         alert('Sorry, canvas is not supported on your browser!');
     }
 }
 
+//starts the game loop
+function start_game(lives){
+	var x =0;
+
+}
+
+
 function set_speeds() {
     delay = 70;
-	setsInterval(draw_cars, delay);
-	setsInterval(draw_logs, delay);
-	
-
+	setInterval(draw_cars, delay);
+	setInterval(draw_logs, delay);
 }
