@@ -5,15 +5,36 @@
 <head>
 <title>Fecesbook</title>
 <script>
-	function foo() {
-	console.log("fsaf");
+    function init() {
+	    msg= "";
+	    stat = document.getElementById("status");
+		ls_len = localStorage.length;
+		for (var i = (ls_len-1); i>=0;i--) {
+		    msg = msg + "<p>" + localStorage[localStorage.key(i)] + "</p>\n";
+		}
+	    stat.innerHTML = msg;
+	}
+	function load_msg() {
+	    msg = "";
+	    txt = document.getElementById("msg").value;
+		d = new Date();
+	    date_time = d.getDate() +"/"+ d.getDay()+"/"+d.getFullYear();
+		date_time = date_time + " " +d.getHours()+":"+d.getMinutes();
+	    localStorage[d.getTime()] = date_time +" - " + txt;
+		
+		stat = document.getElementById("status");
+		ls_len = localStorage.length;
+		for (var i = (ls_len-1); i>=0;i--) {
+		    msg = msg + "<p>" + localStorage[localStorage.key(i)] + "</p>\n";
+		}
+		stat.innerHTML = msg;
 	}
 
 </script>
 
 </head>
 
-<body>
+<body onload=init()> 
 	<h1>Fecebook</h1>
 	<div id="nav">
 		<ul>
@@ -27,7 +48,7 @@
 	</div>
 	<h2 id="fullname">Barney Gumble</h2>
 	<p><img src="https://s3.amazonaws.com/tufts-cs-mchow-images/barneymug.gif" alt="profile" /></p>
-	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="foo()"/></h3>
+	<h3>What are you thinking about? <input type="text" id="msg" name="msg" size="30" onchange="load_msg()"/></h3>
 	<h3>Updates</h3>
 	<div id="status">
 	</div>
