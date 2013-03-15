@@ -1,5 +1,8 @@
-#game_div{
-    text-align: center;
+#game{
+         display: block;
+
+	margin-left: auto;
+     margin-right: auto;
 }
 
 
@@ -14,7 +17,5 @@ canvas {
 
 body {
     background-color: #128138;  
-    position: fixed;
-	overflow-y: scroll;
 }
 
