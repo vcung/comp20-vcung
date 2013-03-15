@@ -12,7 +12,7 @@ function draw_bg() {
     title = ctx.drawImage(sprites, 13, 11, 321, 34, 0, 0, 399, 34);
     greenTop = ctx.drawImage(sprites, 0, 53, 399, 56, 0, 53, 399, 53);
     purpleTop = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 272, 399, 37);
-	function purpleBot(){ ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);}
+	purpleBot = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);
 }
 
 function redraw_bg() {
@@ -45,8 +45,8 @@ function move_frog(x, y) {
 
 //redraws cars at given intervals
 function move_cars(speed) {
- init_car_coords();
- setInterval(draw_vehicles, speed);
+ 
+ //setInterval(draw_vehicles, speed);
  /*
  setInterval(draw_cars2, 190);
  setInterval(draw_cars1, 190);
@@ -72,12 +72,13 @@ function init_game() {
 			draw_bg();
 			
 		    draw_stats(lives, 1, 0, 0);
-			set_speeds();
-		    move_cars(190);
-		    draw_logs();
+			init_coords();
+		   // move_cars(190);
+		    draw_vehicles();
+			draw_logs();
             draw_frog(0, 0);
 	    				
-			setInterval(timer_stat, 60);
+			setInterval(timer_stat, 190);
 		    start_game(lives);	
 	
 		}
@@ -111,7 +112,7 @@ function start_game(lives){
 	    keyDown[event.keyCode] = true;
 		
 	} , false);
-	game_loop = setInterval(game_loop, 2);
+	game_loop = setInterval(game_loop, 130);
 }
 function game_loop() {
     if (lives != 0) {
@@ -157,41 +158,40 @@ function frogright(change) { // Player holding right
 	}*/
 function update(change) {
 //draw_stats(lives, 1, 0, 0, timer);
-if (38 in keyDown) {
-	 redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-//draw_cars(m, n);
-			
-	   draw_frog(x, y-=70*change);
+    redraw_bg();
+	draw_logs();
+	draw_vehicles();
+    if (38 in keyDown) { //up key pressed
+	    redraw_bg();
+		draw_logs();
+	    draw_vehicles();
+	    draw_frog(x, y-=70*change);
 	}
-	if (40 in keyDown) {
-	redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-//draw_cars(m, n);
+	if (40 in keyDown) { //down key pressed
+	   redraw_bg();
+	   draw_logs();
+	   draw_vehicles();
 	   draw_frog(x, y+=70*change);
 	}
 	
-	if (37 in keyDown) {	// Player holding left
+	if (37 in keyDown) {	// left key pressed
 	   redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-//draw_cars(m, n);
+	   draw_logs();
+	   draw_vehicles();
 	   draw_frog(x-=70*change, y);
 	}
-	if (39 in keyDown) { // Player holding right
+	if (39 in keyDown) { // right key pressed
 	   redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-//draw_cars(m, n);
+	   draw_logs();
+	   draw_vehicles();
 	   draw_frog(x+=70*change, y);
 	}
+	draw_stats(lives, 1, 0, 0, timer);
 	//when there are collisions
 	
 }
-function set_speeds() {
- delay = 190;
+function init_coords() {
+init_car_coords();
 	init_log_coords();
-	setInterval(draw_logs, delay);
+//	setInterval(draw_logs, delay);
 }

@@ -30,12 +30,12 @@ function draw_trucks(){
     if (t1<=-778) {
 	   t1=0;
 	} else {
-	   t1-=10;
+	   t1-=5;
 	}
 	if (t2<=-458) {
 	   t2=0;
 	} else {
-	   t2-=10;
+	   t2-=5;
 	 }
 	ctx.drawImage(sprites, 105, 303, 47, 16, 728 + t1, 348, 47, 16);
 	ctx.drawImage(sprites, 105, 303, 47, 16, 398 + t2, 348, 47, 16);
@@ -45,17 +45,17 @@ function draw_cars1(){
     if (x1<=-438) {
 	   x1=0;
 	} else {
-	   x1-=3;
+	   x1-=2;
 	 }
 	 if (y1<=-538) {
 	   y1=0;
 	} else {
-	   y1-=3;
+	   y1-=2;
 	 }
 	 if (z1<=-678) {
 	   z1=0;
 	} else {
-	   z1-=3;
+	   z1-=1;
 	 }
     ctx.drawImage(sprites, 81, 264, 24, 25, 398 + x1, 315, 24, 25);
 	ctx.drawImage(sprites, 81, 264, 24, 25, 508 + y1, 315, 24, 25);
@@ -66,12 +66,12 @@ function draw_cars2() {
     if (x2>=460) {
 	   x2=0;
 	} else {
-	   x2+=15;
+	   x2+=10;
 	}
 	if (y2>=640) {
 	   y2=0;
 	} else {
-	   y2+=15;
+	   y2+=10;
 	 }
     ctx.drawImage(sprites, 44, 263, 28, 28, -30 + x2, 375, 28, 28);
 	ctx.drawImage(sprites, 44, 263, 28, 28, -200 + y2, 375, 28, 28);
@@ -131,9 +131,16 @@ function draw_logs() {
     draw_log3();
 }
 function draw_log1(){
-    a1-=5;
-    b1-=5;
-    for (var i=1; i<6 ; i++){
+       a1-=5;
+	if(b1<=-223)
+	   b1=0;
+	else
+       b1-=5;
+	   
+    for (var i=1; i<5 ; i++){
+	  if(a1<=-(400*i))
+	   a1=0;
+	
         ctx.drawImage(sprites, 7, 221, 83, 40, (200*i) + a1, 105, 83, 40);
 	    ctx.drawImage(sprites, 7, 221, 83, 40, (140*i) + b1, 205, 83, 40);
 	}
