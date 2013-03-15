@@ -16,6 +16,7 @@ function draw_bg() {
 }
 
 function redraw_bg() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
     fill_bg();
 	draw_bg();
 }
@@ -41,34 +42,18 @@ function move_frog(x, y) {
    //ctx.drawImage(frog, 175 + x, 521 + y, 24, 17);
 }
 //draws the cars
-function draw_cars(a, b){
-  
-	
-    ctx.drawImage(sprites, 81, 264, 24, 25, 398 + a, 315, 24, 25);
-	ctx.drawImage(sprites, 81, 264, 24, 25, 508 + a, 315, 24, 25);
-	ctx.drawImage(sprites, 81, 264, 24, 25, 648 + a, 315, 24, 25);
-	
-	ctx.drawImage(sprites, 105, 303, 47, 16, 728 + a, 348, 47, 16);
-	ctx.drawImage(sprites, 105, 303, 47, 16, 398 + a, 348, 47, 16);
-	
-	ctx.drawImage(sprites, 44, 263, 28, 28, -30 + b, 375, 28, 28);
-	ctx.drawImage(sprites, 44, 263, 28, 28, -200 + b, 375, 28, 28);
-	
-	ctx.drawImage(sprites, 6, 265, 34, 22, 398 + a, 410, 34, 22);
-	ctx.drawImage(sprites, 6, 265, 34, 22, 510 + a, 410, 34, 22);
-	ctx.drawImage(sprites, 6, 265, 34, 22, 650 + a, 410, 34, 22);
-	ctx.drawImage(sprites, 70, 300, 28, 22, -30 + b, 445, 28, 22);
-	ctx.drawImage(sprites, 70, 300, 28, 22, -170 + b, 445, 28, 22);
-	draw_stats(lives, 1, 0, 0, timer);
-draw_frog(x, y);
-}
-m=0;
-n = 0;
+
 function move_cars() {
- redraw_bg();
-if ((398+m)<=-30) m = 0;
-if (n>=398) n =0;
-draw_cars(m-=4, n+=4); 
+ init_car_coords();
+ var delay = 190;
+ setInterval(draw_vehicles, 190);
+ /*
+ setInterval(draw_cars2, 190);
+ setInterval(draw_cars1, 190);
+ setInterval(draw_trucks, 190);
+ setInterval(draw_cars4, 190);
+ setInterval(draw_cars3, 190);
+*/
 }
 //draws the logs
 function draw_logs() {
@@ -91,16 +76,20 @@ function init_game() {
 			draw_bg();
 			
 		    draw_stats(lives, 1, 0, 0, 0);
-		    draw_cars(0, 0);
+		    move_cars();
 		    draw_logs();
             draw_frog(0, 0);
 	    	set_speeds();			
+			setInterval(timer_stat, 60);
 		    start_game(lives);	
 	
 		}
     } else {
         alert('Sorry, canvas is not supported on your browser!');
     }
+}
+function timer_stat(){
+
 }
 timer = time.getMinutes();
 x=0;
@@ -142,7 +131,7 @@ function game_loop() {
 }
 then = Date.now();
  
-setInterval(timer, 60);
+
 /*
 function frogup(change) {
 	   redraw_bg();
@@ -175,7 +164,7 @@ if (38 in keyDown) {
 	 redraw_bg();
 		    draw_logs();
 			draw_stats(lives, 1, 0, 0, timer);
-draw_cars(m, n);
+//draw_cars(m, n);
 			
 	   draw_frog(x, y-=70*change);
 	}
@@ -183,7 +172,7 @@ draw_cars(m, n);
 	redraw_bg();
 		    draw_logs();
 			draw_stats(lives, 1, 0, 0, timer);
-draw_cars(m, n);
+//draw_cars(m, n);
 	   draw_frog(x, y+=70*change);
 	}
 	
@@ -191,21 +180,21 @@ draw_cars(m, n);
 	   redraw_bg();
 		    draw_logs();
 			draw_stats(lives, 1, 0, 0, timer);
-draw_cars(m, n);
+//draw_cars(m, n);
 	   draw_frog(x-=70*change, y);
 	}
 	if (39 in keyDown) { // Player holding right
 	   redraw_bg();
 		    draw_logs();
 			draw_stats(lives, 1, 0, 0, timer);
-draw_cars(m, n);
+//draw_cars(m, n);
 	   draw_frog(x+=70*change, y);
 	}
 	//when there are collisions
 	
 }
 function set_speeds() {
-	delay = 190;
-	setInterval(move_cars, delay);
+ delay = 190;
+	
 	setInterval(draw_logs, delay);
 }
