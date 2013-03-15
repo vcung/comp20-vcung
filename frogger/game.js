@@ -12,7 +12,7 @@ function draw_bg() {
     title = ctx.drawImage(sprites, 13, 11, 321, 34, 0, 0, 399, 34);
     greenTop = ctx.drawImage(sprites, 0, 53, 399, 56, 0, 53, 399, 53);
     purpleTop = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 272, 399, 37);
-	purpleBot = ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);
+	function purpleBot(){ ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);}
 }
 
 function redraw_bg() {
@@ -22,7 +22,7 @@ function redraw_bg() {
 }
 //draws the stats at the bottom of the game
 //including lives left, level, score, and highscore
-function draw_stats(numFrogs, lvl, score, highsc,time) {
+function draw_stats(numFrogs, lvl, score, highsc) {
     for (i=0; i<numFrogs; i++){
 	    ctx.drawImage(sprites, 12, 333, 18, 24, i*18, 511, 18, 24);
         }
@@ -31,7 +31,8 @@ function draw_stats(numFrogs, lvl, score, highsc,time) {
 		ctx.fillText("Level "+ lvl, 324, 529);
 		ctx.fillText("Score: "+ score, 2, 560);
 		ctx.fillText("Highscore: "+highsc, 100, 560);
-        ctx.fillText("Time: "+ time, 260, 560);
+        ctx.fillText("Time: "+ timer, 260, 560);
+		ctx.fillText("Time: "+ timer, 260, 560);
 }
 //draws the frog the player controls
 function draw_frog(x, y){
@@ -41,12 +42,11 @@ function draw_frog(x, y){
 function move_frog(x, y) {
    //ctx.drawImage(frog, 175 + x, 521 + y, 24, 17);
 }
-//draws the cars
 
-function move_cars() {
+//redraws cars at given intervals
+function move_cars(speed) {
  init_car_coords();
- var delay = 190;
- setInterval(draw_vehicles, 190);
+ setInterval(draw_vehicles, speed);
  /*
  setInterval(draw_cars2, 190);
  setInterval(draw_cars1, 190);
@@ -54,10 +54,6 @@ function move_cars() {
  setInterval(draw_cars4, 190);
  setInterval(draw_cars3, 190);
 */
-}
-//draws the logs
-function draw_logs() {
-    ctx.drawImage(sprites, 6, 228, 85, 24, 40, 112, 85, 24);
 }
 
 //initiates game
@@ -71,15 +67,16 @@ function init_game() {
         sprites.src = "assets/frogger_sprites.png";
 	    
         sprites.onload = function () {
-		
+		    
 			fill_bg();
 			draw_bg();
 			
-		    draw_stats(lives, 1, 0, 0, 0);
-		    move_cars();
+		    draw_stats(lives, 1, 0, 0);
+			set_speeds();
+		    move_cars(190);
 		    draw_logs();
             draw_frog(0, 0);
-	    	set_speeds();			
+	    				
 			setInterval(timer_stat, 60);
 		    start_game(lives);	
 	
@@ -195,6 +192,6 @@ if (38 in keyDown) {
 }
 function set_speeds() {
  delay = 190;
-	
+	init_log_coords();
 	setInterval(draw_logs, delay);
 }

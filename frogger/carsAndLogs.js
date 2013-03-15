@@ -14,12 +14,16 @@ function init_car_coords(){
 	
 }
 function draw_vehicles(){
-    redraw_bg();
+   // redraw_bg();
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 307, 399, 280);
+	ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);
     draw_trucks();
     draw_cars1();
     draw_cars2();
     draw_cars3();
     draw_cars4();
+	draw_stats(lives, 1, 0, 0);
 }
 function draw_trucks(){
  //   redraw_bg();
@@ -109,6 +113,45 @@ function draw_cars4(){
 	ctx.drawImage(sprites, 70, 300, 28, 22, -30 + x4, 445, 28, 22);
 	ctx.drawImage(sprites, 70, 300, 28, 22, -190 + y4, 445, 28, 22);
 }
+function init_log_coords(){
+    a1=0;
+    b1=0;
+    a2=0;
+    b2=0;
+    a3=0;
+}
+//draws the logs
+function draw_logs() {
+    ctx.fillStyle = '#191970';
+    ctx.fillRect(0, 0, 399, 280);
+    ctx.drawImage(sprites, 13, 11, 321, 34, 0, 0, 399, 34);
+    ctx.drawImage(sprites, 0, 53, 399, 56, 0, 53, 399, 53);
+    draw_log1();
+    draw_log2();
+    draw_log3();
+}
+function draw_log1(){
+    a1-=5;
+    b1-=5;
+    for (var i=1; i<6 ; i++){
+        ctx.drawImage(sprites, 7, 221, 83, 40, (200*i) + a1, 105, 83, 40);
+	    ctx.drawImage(sprites, 7, 221, 83, 40, (140*i) + b1, 205, 83, 40);
+	}
+}
+function draw_log2(){
+   a2-=5;
+   b2-=5;
+   for (var i=1; i<6 ; i++){
+		ctx.drawImage(sprites, 9, 153, 175, 44, (250*i) + a2, 135,  175, 44);
+		ctx.drawImage(sprites, 9, 153, 175, 44, (330*i) + b2, 235, 175, 44);
+	}
+}
+function draw_log3(){
+	a3-=5;
+	for (var i=1; i<6 ; i++){
+	    ctx.drawImage(sprites, 7, 187, 116, 42, (300*i)+ a3, 170, 116, 42);
+	 }
+ }
 
 
 
