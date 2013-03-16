@@ -206,10 +206,9 @@ function draw_log3(speed){
 	}
  }
 
-
 function move_fly() {
     fly.x = (Math.random() * (canvas.width));
-    fly.y = (Math.random() * 485);
+    fly.y = ((Math.random() * 485)+100);
     m = fly.x;
 	n = fly.y;
 	draw_fly();
@@ -220,7 +219,7 @@ function draw_fly(){
 
 function move_lady() {
     lady.x = (Math.random() * (canvas.width));
-    lady.y = (Math.random() * 485);
+    lady.y = ((Math.random() * 485) +100);
     ladyx = lady.x;
 	ladyy = lady.y;
 	draw_lady();

@@ -102,7 +102,7 @@ function init_fly() {
 	fly.w = 20
 	fly.h = 20
 	fly.x = Math.floor((Math.random() * (canvas.width))+1);
-	fly.y = Math.floor((Math.random() * (canvas.height))+1);
+	fly.y = Math.floor((Math.random() * 485)+100);
 	m = fly.x;
 	n = fly.y;
 }
@@ -112,7 +112,7 @@ function init_lady() {
 	lady.w = 30
 	lady.h = 28
 	lady.x = Math.floor((Math.random() * (canvas.width))+1);
-	lady.y = Math.floor((Math.random() * 485)+1);
+	lady.y = Math.floor((Math.random() * 485)+100);
 	ladyx = lady.x;
 	ladyy = lady.y;
 }
