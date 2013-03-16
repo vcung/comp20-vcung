@@ -6,7 +6,6 @@ keyDown = [];
 
 //initiates game
 function init_game() {
-//initiates gamefunction init_game() {
     canvas = document.getElementById("game");
         // Check if canvas is supported on browser
     if (canvas.getContext) {
@@ -41,20 +40,13 @@ function init_game() {
 function draw_frog(x, y){
     ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
 }
-function hop_up() {
-      ctx.drawImage(sprites, 45, 365, 22, 27, 175 + x, 485 + y, 22, 27);
-}
-function hop_down() {
-      ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
-      ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
-}
 
 //starts the game loop
 function start_game(lives){
 	addEventListener("keyup", function(event) {
 	    delete keyDown[event.keyCode];	
 	} , false);
-	addEventListener("keydown", function(event) {
+	addEventListener("keydown", function(event) {   
 	    keyDown[event.keyCode] = true;
 	} , false);
 	game_loop = setInterval(game_loop, 160);
@@ -66,6 +58,11 @@ function game_loop() {
         timer = timer + time.getMinutes();
         var now = Date.now();
         var diffInTime = now - then;
+		
+		redraw_bg();
+        draw_logs(log_speed);
+	    draw_vehicles(veh_speed);
+		draw_frog(x,y);
 	    update(diffInTime / 1000);
 		get_life();
 		draw_fly(m, n);
@@ -79,20 +76,12 @@ function game_loop() {
 then = Date.now();
  
 function update(change) {
-    redraw_bg();
-	draw_logs(log_speed);
-	draw_vehicles(veh_speed);
 	if (frog_on_log) {
 	    move_with_log(on_log);
 	}
-	draw_frog(x,y);
-	
     if (38 in keyDown) { //up key pressed
 	    if(y>-405)  {
-			redraw_bg();
-			draw_logs(log_speed);
-			draw_vehicles(veh_speed);
-			draw_frog(x, y-=70*change);
+			y-=10;
 			score +=10;
 			if (y<-390){
 			    frog_home +=1;
@@ -108,28 +97,19 @@ function update(change) {
 	}
 	if (40 in keyDown) { //down key pressed
 	    if (y<0){
-		    redraw_bg();
-			draw_logs(log_speed);
-			draw_vehicles(veh_speed);
-	        draw_frog(x, y+=70*change);
+	        y+=10;
 	        score+=10;
 	   }
     }	
 	if (37 in keyDown) {	// left key pressed
 	   if (x>-175){
-		   redraw_bg();
-		   draw_logs(log_speed);
-		   draw_vehicles(veh_speed);
-		   draw_frog(x-=70*change, y);
+		   x-=10;
 		   score+=10;
 	   }
 	}
 	if (39 in keyDown) { // right key pressed
 	   if (x<196) {
-		   redraw_bg();
-		   draw_logs(log_speed);
-		   draw_vehicles(veh_speed);
-		   draw_frog(x+=70*change, y);
+		   x+=10;
 		   score+=10;
 		   }
 	}
@@ -156,24 +136,24 @@ function detect_collision(){
 	    }
 	}
 	if (y<-210){
-    for (var i=0; i<12;i++) {
-	    if (fell_into_water(log1[i])){
-		     lost_life();
-			 x=0;
-			 y=0;
-			 draw_frog();
-			 return;
-	    }
-	}    
-	for (var i=0; i<10;i++) {
-	    if (fell_into_water(log2[i])||fell_into_water(log3[i])){
-		     lost_life();
-			 x=0;
-			 y=0;
-			 draw_frog();
-			 return;
-	    }
-	}
+		for (var i=0; i<12;i++) {
+			if (fell_into_water(log1[i])){
+				 lost_life();
+				 x=0;
+				 y=0;
+				 draw_frog();
+				 return;
+			}
+		}    
+		for (var i=0; i<10;i++) {
+			if (fell_into_water(log2[i])||fell_into_water(log3[i])){
+				 lost_life();
+				 x=0;
+				 y=0;
+				 draw_frog();
+				 return;
+			}
+		}
 	}
 }
 function has_collided(obj) {
@@ -210,7 +190,6 @@ function fell_into_water(obj) {
 			 return false;		 
 		}
     }
-	
     return true;
 }
 function lost_life(){

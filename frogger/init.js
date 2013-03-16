@@ -63,7 +63,6 @@ function init_log_coords(){
     a2=0;
     b2=0;
     a3=0;
-	//log = new Object;
 	log1 = new Object;
 	log2 = new Object;
 	log3 = new Object;
