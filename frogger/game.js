@@ -25,6 +25,12 @@ function init_game() {
 		    draw_vehicles();
 			draw_logs();
             draw_frog(0, 0);
+			frogh=24;
+	        frogw=17;
+			init_fly();
+			setInterval(move_fly, 2000);
+			init_lady();
+			setInterval(move_lady, 3000);
 		    start_game(lives);	
 		}
     } else {
@@ -36,9 +42,7 @@ function draw_frog(x, y){
     ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
 }
 function hop_up() {
-      ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
       ctx.drawImage(sprites, 45, 365, 22, 27, 175 + x, 485 + y, 22, 27);
-	 // ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
 }
 function hop_down() {
       ctx.drawImage(sprites, 11, 369, 24, 17, 175 + x, 485 + y, 24, 17);
@@ -47,18 +51,13 @@ function hop_down() {
 
 //starts the game loop
 function start_game(lives){
-  /* if (document.addEventListener)
-   {
-   document.addEventListener("keyup", frogup, false);
-   document.addEventListener("keydown", frogup, false);
-	*/
 	addEventListener("keyup", function(event) {
 	    delete keyDown[event.keyCode];	
 	} , false);
 	addEventListener("keydown", function(event) {
 	    keyDown[event.keyCode] = true;
 	} , false);
-	game_loop = setInterval(game_loop, 190);
+	game_loop = setInterval(game_loop, 160);
 }
 function game_loop() {
     if (lives != 0) {
@@ -66,6 +65,9 @@ function game_loop() {
         var now = Date.now();
         var diffInTime = now - then;
 	    update(diffInTime / 1000);
+		get_life();
+		draw_fly(m, n);
+		draw_lady(ladyx, ladyy);
 	    then=now;
     }
     else {
@@ -74,63 +76,27 @@ function game_loop() {
 }
 then = Date.now();
  
-function detect_collision() {
-	for(var i = 1; i<3;i++){
-	    if (frogtop>=car[i].bottom){
-	        lost_life();
-	    }
-	}
-}
-
-function fell_into_water() {
-
-}
- 
-/*
-function frogup(change) {
-	   redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-	   draw_frog(x, y-=70*change);
-	}
-function frogdown(change) {
-	   redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-	   draw_frog(x, y+=70*change);
-	}
-	
-function frogleft(change) { // Player holding left
-		 redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-	   draw_frog(x-=70*change, y);
-	}
-function frogright(change) { // Player holding right
-		 redraw_bg();
-		    draw_logs();
-			draw_stats(lives, 1, 0, 0, timer);
-	   draw_frog(x+=70*change, y);
-	}*/
 function update(change) {
     redraw_bg();
 	draw_logs();
 	draw_vehicles();
+	if (frog_on_log) {
+	    move_with_log(on_log);
+	}
 	draw_frog(x,y);
+	
     if (38 in keyDown) { //up key pressed
 	    if(y>-405)  {
 			redraw_bg();
 			draw_logs();
 			draw_vehicles();
 			draw_frog(x, y-=70*change);
-		  //  y-=70*change;
-			//draw_frog();
 			score +=10;
 			if (y<-390){
 			    frog_home +=1;
-				if (frog_home==5) {
+				if (frog_home>=5) {
 				    score +=1000;
-					//implement next level
+					//next_level();
 				}
 				else {
 				    score +=50;
@@ -165,27 +131,47 @@ function update(change) {
 		   score+=10;
 		   }
 	}
-
-	draw_stats(lives, lvl, score, 0, timer);
-	//when there are collisions
+	draw_stats(lives, lvl, score, highsc);
 	detect_collision();
 }
- 
+
 function detect_collision(){
+    if ((has_collided(fly))||(has_collided(lady))) {
+	   score+=200;
+	}
     for (var i=0; i<12;i++) {
 	    if (has_collided(vehicle[i])){
 		     lost_life();
 			 x=0;
 			 y=0;
 			 draw_frog();
+			 return;
 	    }
+	}
+	if (y<-210){
+    for (var i=0; i<12;i++) {
+	    if (fell_into_water(log1[i])){
+		     lost_life();
+			 x=0;
+			 y=0;
+			 draw_frog();
+			 return;
+	    }
+	}    
+	for (var i=0; i<10;i++) {
+	    if (fell_into_water(log2[i])||fell_into_water(log3[i])){
+		     lost_life();
+			 x=0;
+			 y=0;
+			 draw_frog();
+			 return;
+	    }
+	}
 	}
 }
 function has_collided(obj) {
     frogx= 175 + x;
 	frogy= 485 + y;	 
-	frogh=24;
-	frogw=17;
 	 //collision from right
 	if (frogx + frogw < obj.x) {
       return false;
@@ -204,9 +190,21 @@ function has_collided(obj) {
     }
     return true;
 }
-
-function fell_into_water() {
-
+//checks if frog is on log
+//returns true if frog is on log, false otherwise
+function fell_into_water(obj) {
+    frogx= 175 + x;
+	frogy= 485 + y;	
+	 //collision from right
+	if ((frogx + frogw > obj.x)&&(frogy + frogh > obj.y)) {
+	    if ((frogx < obj.x + obj.w)&&(frogy < obj.y + obj.h)) {
+             frog_on_log = true;
+	         on_log = obj;
+			 return false;		 
+		}
+    }
+	
+    return true;
 }
 function lost_life(){
 	lives--;
@@ -214,7 +212,7 @@ function lost_life(){
 }
 
 function lost_game() {
-    
+    score += time_left*10;
 	if (score>highsc){
 	    highsc = score;
 	}
@@ -223,7 +221,21 @@ function lost_game() {
 	score = 0;
 	lives = 4;
 	lvl =1;
+	frog_on_log = false;
     draw_stats(lives, lvl, score, highsc);
-	
-
 }
+function move_with_log(log) {
+    x = x - log.speed;
+}
+
+function get_life() {
+    if (score >= (prev_score + 10000)) {
+	    if (lives < 4) {
+		    lives++;
+			draw_stats(lives, lvl, score, highsc);
+		}	
+        prev_score = score;
+	}
+}
+
+function next_level(){}

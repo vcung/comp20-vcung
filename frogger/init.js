@@ -5,6 +5,9 @@ function init_stats() {
 	lvl=1;
 	score=0;
 	highsc=0;
+	prev_score = 0;
+	frog_on_log = false;
+    on_log= null;
 }
 
 function init_car_coords(){
@@ -58,25 +61,36 @@ function init_log_coords(){
     a2=0;
     b2=0;
     a3=0;
-	log = new Object;
-	for (var i = 0; i<20;i++) {
-	    log[i] = new Object;
+	//log = new Object;
+	log1 = new Object;
+	log2 = new Object;
+	log3 = new Object;
+	for (var i = 0; i<12;i++) {
+	    log1[i] = new Object;
+		log2[i] = new Object;
+		log3[i] = new Object;
 	}
-	var j=0;
-	for (j; j< 12; j++) { //set properties for log1s
-		log[j].w = 83;
-		log[j].h = 40;
-		log[j].y = 105;
+
+	for (var j=0; j< 12; j++) { //set properties for log1s
+		log1[j].w = 83;
+		log1[j].h = 40;
+		if(j<6) {
+		    log1[j].y = 105; }
+		else {
+		    log1[j].y = 205;}
 	}	
-	for (j=j; j< 12; j++) { //set properties for log2s
-		log[j].w = 175;
-		log[j].h = 44;
-		log[j].y = 135;
+	for (var j=0; j< 10; j++) { //set properties for log2s
+		log2[j].w = 178;
+		log2[j].h = 44;
+		if(j<5){
+		    log2[j].y = 135;}
+		else {
+		    log2[j].y = 235;}
 	}	
-	for (j=j; j< 12; j++) { //set properties for log3s
-		log[j].w = 116;
-		log[j].h = 42;
-		log[j].y = 170;
+	for (var j=0; j< 10; j++) { //set properties for log3s
+		log3[j].w = 116;
+		log3[j].h = 42;
+		log3[j].y = 170;
 	}	
 }
 function init_coords() {
