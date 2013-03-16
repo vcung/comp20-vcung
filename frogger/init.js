@@ -1,4 +1,4 @@
-
+//set some stats
 function init_stats() {
     home_frogs = 0;
 	lives = 4;
@@ -12,6 +12,7 @@ function init_stats() {
 	log_speed = 0;
 }
 
+//initiate vehicle objects
 function init_car_coords(){
     t1=-59;
 	t2=-59;
@@ -57,6 +58,7 @@ function init_car_coords(){
 		vehicle[j].y = 445;
 	}	
 }
+//initiate log objects
 function init_log_coords(){
     a1=0;
     b1=0;
@@ -97,6 +99,7 @@ function init_coords() {
     init_car_coords();
 	init_log_coords();
 }
+//initiate fly object
 function init_fly() {
 	fly = new Object;
 	fly.w = 20
@@ -106,7 +109,7 @@ function init_fly() {
 	m = fly.x;
 	n = fly.y;
 }
-
+//initiate lady objects
 function init_lady() {
 	lady = new Object;
 	lady.w = 30

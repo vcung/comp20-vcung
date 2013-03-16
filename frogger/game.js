@@ -82,7 +82,7 @@ function update(change) {
     if (38 in keyDown) { //up key pressed
 	    if(y>-405)  {
 			y-=10;
-			score +=10;
+			score +=70*change;
 			if (y<-390){
 			    frog_home +=1;
 				if (frog_home>=5) {
@@ -97,19 +97,19 @@ function update(change) {
 	}
 	if (40 in keyDown) { //down key pressed
 	    if (y<0){
-	        y+=10;
+	        y+=70*change;
 	        score+=10;
 	   }
     }	
 	if (37 in keyDown) {	// left key pressed
 	   if (x>-175){
-		   x-=10;
+		   x-=70*change;
 		   score+=10;
 	   }
 	}
 	if (39 in keyDown) { // right key pressed
 	   if (x<196) {
-		   x+=10;
+		   x+=70*change;
 		   score+=10;
 		   }
 	}
@@ -156,6 +156,8 @@ function detect_collision(){
 		}
 	}
 }
+
+//returns true if frogger has collided with given object
 function has_collided(obj) {
     frogx= 175 + x;
 	frogy= 485 + y;	 
@@ -183,8 +185,8 @@ function fell_into_water(obj) {
     frogx= 175 + x;
 	frogy= 485 + y;	
 	 //collision from right
-	if ((frogx + frogw > obj.x)&&(frogy + frogh > obj.y)) {
-	    if ((frogx < obj.x + obj.w)&&(frogy < obj.y + obj.h)) {
+	if ((frogx + frogw >= obj.x)&&(frogy + frogh >= obj.y)) {
+	    if ((frogx <= obj.x + obj.w)&&(frogy <= obj.y + obj.h)) {
              frog_on_log = true;
 	         on_log = obj;
 			 return false;		 
@@ -192,11 +194,12 @@ function fell_into_water(obj) {
     }
     return true;
 }
+//updates stats to reflect loss of life
 function lost_life(){
 	lives--;
 	draw_stats(lives, lvl, score, highsc);
 }
-
+//resets game, updates highscore if appropriate
 function lost_game() {
     score += Math.round(time_left*10);
 	if (score>highsc){
@@ -214,6 +217,8 @@ function lost_game() {
 	time = new Date();
     draw_stats(lives, lvl, score, highsc);
 }
+
+//moves frog at same pace and direction as log it is on
 function move_with_log(log) {
     x = x - log.speed;
 }
@@ -229,6 +234,7 @@ function get_life() {
 	}
 }
 
+//increases speed of cars and logs, updates game for new level
 function next_level(){
     score += Math.round(time_left*10);
 	x=0;

@@ -20,7 +20,6 @@ function redraw_bg() {
 	draw_bg();
 }
 
-
 //draws the stats at the bottom of the game
 //including lives left, level, score, and highscore
 function draw_stats(numFrogs, lvl, score, highsc) {
@@ -35,7 +34,7 @@ function draw_stats(numFrogs, lvl, score, highsc) {
    
 	ctx.fillText("Time: ", 220, 560); 
 	if (timer >= -10000) {
-	time_left = 150-(timer/10000);
+	time_left = Math.round(150-(timer/10000));
     ctx.fillRect(275, 548, time_left, 12);
 	}
 }
@@ -54,12 +53,12 @@ function draw_vehicles(sp){
 }
 
 function draw_trucks(s){
-    if (t1<=-778) {
+    if (t1<=-775) {
 	   t1=0;
 	} else {
 	   t1-=s;
 	}
-	if (t2<=-458) {
+	if (t2<=-445) {
 	   t2=0;
 	} else {
 	   t2-=s;
@@ -71,18 +70,17 @@ function draw_trucks(s){
 	
 }
 function draw_cars1(s){
-  //  redraw_bg();
-    if (x1<=-438) {
+    if (x1<=-422) {
 	   x1=0;
 	} else {
 	   x1-=s;
 	 }
-	 if (y1<=-538) {
+	 if (y1<=-532) {
 	   y1=0;
 	} else {
 	   y1-=s;
 	 }
-	 if (z1<=-678) {
+	 if (z1<=-672) {
 	   z1=0;
 	} else {
 	   z1-=s;
@@ -134,7 +132,6 @@ function draw_cars3(s){
 	vehicle[9].x=650+z3;
 }
 function draw_cars4(s){
-
    if (x4>=460) {
 	   x4=0;
 	} else {
@@ -206,6 +203,7 @@ function draw_log3(speed){
 	}
  }
 
+//redraw the fly somewhere random on the canvas
 function move_fly() {
     fly.x = (Math.random() * (canvas.width));
     fly.y = Math.floor((Math.random() * 485));
@@ -216,7 +214,7 @@ function move_fly() {
 function draw_fly(){
     ctx.drawImage(sprites, 138, 234, 20, 20, m, n, 20, 20);
 }
-
+//redraw lady frog somewhere random on the canvas
 function move_lady() {
     lady.x = (Math.random() * (canvas.width));
     lady.y = Math.floor((Math.random() * 485));
