@@ -136,7 +136,12 @@ function update(change) {
 }
 
 function detect_collision(){
-    if ((has_collided(fly))||(has_collided(lady))) {
+    if (has_collided(fly)) {
+	   move_fly();
+	   score+=200;
+	}
+    if (has_collided(lady)){
+	   move_lady();
 	   score+=200;
 	}
     for (var i=0; i<12;i++) {

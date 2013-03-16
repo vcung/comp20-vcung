@@ -206,18 +206,10 @@ function draw_log3(speed){
 	}
  }
 
-function init_fly() {
-	fly = new Object;
-	fly.w = 20
-	fly.h = 20
-	fly.x = Math.floor((Math.random() * (canvas.width))+1);
-	fly.y = Math.floor((Math.random() * (canvas.height))+1);
-	m = fly.x;
-	n = fly.y;
-}
+
 function move_fly() {
     fly.x = (Math.random() * (canvas.width));
-    fly.y = (Math.random() * (canvas.height));
+    fly.y = (Math.random() * 485);
     m = fly.x;
 	n = fly.y;
 	draw_fly();
@@ -225,18 +217,10 @@ function move_fly() {
 function draw_fly(){
     ctx.drawImage(sprites, 138, 234, 20, 20, m, n, 20, 20);
 }
-function init_lady() {
-	lady = new Object;
-	lady.w = 30
-	lady.h = 28
-	lady.x = Math.floor((Math.random() * (canvas.width))+1);
-	lady.y = Math.floor((Math.random() * (canvas.height))+1);
-	ladyx = lady.x;
-	ladyy = lady.y;
-}
+
 function move_lady() {
     lady.x = (Math.random() * (canvas.width));
-    lady.y = (Math.random() * (canvas.height));
+    lady.y = (Math.random() * 485);
     ladyx = lady.x;
 	ladyy = lady.y;
 	draw_lady();

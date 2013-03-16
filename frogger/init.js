@@ -97,4 +97,22 @@ function init_coords() {
     init_car_coords();
 	init_log_coords();
 }
+function init_fly() {
+	fly = new Object;
+	fly.w = 20
+	fly.h = 20
+	fly.x = Math.floor((Math.random() * (canvas.width))+1);
+	fly.y = Math.floor((Math.random() * (canvas.height))+1);
+	m = fly.x;
+	n = fly.y;
+}
 
+function init_lady() {
+	lady = new Object;
+	lady.w = 30
+	lady.h = 28
+	lady.x = Math.floor((Math.random() * (canvas.width))+1);
+	lady.y = Math.floor((Math.random() * 485)+1);
+	ladyx = lady.x;
+	ladyy = lady.y;
+}
