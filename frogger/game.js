@@ -22,8 +22,8 @@ function init_game() {
 			draw_bg();
 		    draw_stats(lives, lvl, score, highsc);
 			init_coords();
-		    draw_vehicles();
-			draw_logs();
+		    draw_vehicles(0);
+			draw_logs(0);
             draw_frog(0, 0);
 			frogh=24;
 	        frogw=17;
@@ -59,6 +59,8 @@ function start_game(lives){
 	} , false);
 	game_loop = setInterval(game_loop, 160);
 }
+
+//updates game if user has not won.
 function game_loop() {
     if (lives != 0) {
         timer = timer + time.getMinutes();
@@ -78,8 +80,8 @@ then = Date.now();
  
 function update(change) {
     redraw_bg();
-	draw_logs();
-	draw_vehicles();
+	draw_logs(log_speed);
+	draw_vehicles(veh_speed);
 	if (frog_on_log) {
 	    move_with_log(on_log);
 	}
@@ -88,15 +90,15 @@ function update(change) {
     if (38 in keyDown) { //up key pressed
 	    if(y>-405)  {
 			redraw_bg();
-			draw_logs();
-			draw_vehicles();
+			draw_logs(log_speed);
+			draw_vehicles(veh_speed);
 			draw_frog(x, y-=70*change);
 			score +=10;
 			if (y<-390){
 			    frog_home +=1;
 				if (frog_home>=5) {
 				    score +=1000;
-					//next_level();
+					next_level();
 				}
 				else {
 				    score +=50;
@@ -107,8 +109,8 @@ function update(change) {
 	if (40 in keyDown) { //down key pressed
 	    if (y<0){
 		    redraw_bg();
-	        draw_logs();
-	        draw_vehicles();
+			draw_logs(log_speed);
+			draw_vehicles(veh_speed);
 	        draw_frog(x, y+=70*change);
 	        score+=10;
 	   }
@@ -116,8 +118,8 @@ function update(change) {
 	if (37 in keyDown) {	// left key pressed
 	   if (x>-175){
 		   redraw_bg();
-		   draw_logs();
-		   draw_vehicles();
+		   draw_logs(log_speed);
+		   draw_vehicles(veh_speed);
 		   draw_frog(x-=70*change, y);
 		   score+=10;
 	   }
@@ -125,8 +127,8 @@ function update(change) {
 	if (39 in keyDown) { // right key pressed
 	   if (x<196) {
 		   redraw_bg();
-		   draw_logs();
-		   draw_vehicles();
+		   draw_logs(log_speed);
+		   draw_vehicles(veh_speed);
 		   draw_frog(x+=70*change, y);
 		   score+=10;
 		   }
@@ -217,7 +219,7 @@ function lost_life(){
 }
 
 function lost_game() {
-    score += time_left*10;
+    score += Math.round(time_left*10);
 	if (score>highsc){
 	    highsc = score;
 	}
@@ -226,13 +228,18 @@ function lost_game() {
 	score = 0;
 	lives = 4;
 	lvl =1;
+	veh_speed = 0;
+	log_speed = 0;
 	frog_on_log = false;
+	timer = 0;
+	time = new Date();
     draw_stats(lives, lvl, score, highsc);
 }
 function move_with_log(log) {
     x = x - log.speed;
 }
 
+//player gets another life if they scored an additional 10000
 function get_life() {
     if (score >= (prev_score + 10000)) {
 	    if (lives < 4) {
@@ -243,4 +250,15 @@ function get_life() {
 	}
 }
 
-function next_level(){}
+function next_level(){
+    score += Math.round(time_left*10);
+	x=0;
+	y=0;
+	lvl++;
+	veh_speed+=2;
+	log_speed+=2;
+	frog_on_log = false;
+    draw_stats(lives, lvl, score, highsc);
+	timer = 0;
+	time = new Date();
+}

@@ -35,21 +35,21 @@ function draw_stats(numFrogs, lvl, score, highsc) {
    
 	ctx.fillText("Time: ", 220, 560); 
 	if (timer >= -10000) {
-	time_left = 1000-(timer/100)
+	time_left = 150-(timer/10000);
     ctx.fillRect(275, 548, time_left, 12);
 	}
 }
 
 //draws all five lanes of vehicles
-function draw_vehicles(){
+function draw_vehicles(sp){
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 307, 399, 280);
 	ctx.drawImage(sprites, 0, 117, 399, 37, 0, 473, 399, 37);
-    draw_trucks(10);
-    draw_cars1(5);
-    draw_cars2();
-    draw_cars3();
-    draw_cars4();
+    draw_trucks(sp+10);
+    draw_cars1(sp+5);
+    draw_cars2(sp+10);
+    draw_cars3(sp+3);
+    draw_cars4(sp+6);
 	draw_stats(lives, lvl, score, highsc);
 }
 
@@ -98,33 +98,33 @@ function draw_cars2(s) {
     if (x2>=460) {
 	   x2=0;
 	} else {
-	   x2+=10;
+	   x2+=s;
 	}
 	if (y2>=640) {
 	   y2=0;
 	} else {
-	   y2+=10;
+	   y2+=s;
 	 }
     ctx.drawImage(sprites, 44, 263, 28, 28, -30 + x2, 375, 28, 28);
 	ctx.drawImage(sprites, 44, 263, 28, 28, -200 + y2, 375, 28, 28);
     vehicle[5].x=-30+x2;
 	vehicle[6].x=-200+y2;
 }
-function draw_cars3(){
+function draw_cars3(s){
   if (x3<=-438) {
 	   x3=0;
 	} else {
-	   x3-=3;
+	   x3-=s;
 	}
 	 if (y3<=-550) {
 	   y3=0;
 	} else {
-	   y3-=3;
+	   y3-=s;
 	}
 	 if (z3<=-690) {
 	   z3=0;
 	} else {
-	   z3-=3;
+	   z3-=s;
 	}
     ctx.drawImage(sprites, 6, 265, 34, 22, 398 + x3, 410, 34, 22);
 	ctx.drawImage(sprites, 6, 265, 34, 22, 510 + y3, 410, 34, 22);
@@ -133,17 +133,17 @@ function draw_cars3(){
 	vehicle[8].x=510+y3;
 	vehicle[9].x=650+z3;
 }
-function draw_cars4(){
+function draw_cars4(s){
 
    if (x4>=460) {
 	   x4=0;
 	} else {
-	   x4+=6;
+	   x4+=s;
 	}
 	if (y4>=530) {
 	   y4=0;
 	} else {
-	   y4+=6;
+	   y4+=s;
 	 }
 	ctx.drawImage(sprites, 70, 300, 28, 22, -30 + x4, 445, 28, 22);
 	ctx.drawImage(sprites, 70, 300, 28, 22, -190 + y4, 445, 28, 22);
@@ -152,14 +152,14 @@ function draw_cars4(){
 }
 
 //draws the logs
-function draw_logs() {
+function draw_logs(log_sp) {
     ctx.fillStyle = '#191970';
     ctx.fillRect(0, 0, 399, 280);
     ctx.drawImage(sprites, 13, 11, 321, 34, 0, 0, 399, 34);
     ctx.drawImage(sprites, 0, 53, 399, 56, 0, 53, 399, 53);
-    draw_log1(5);
-    draw_log2(7);
-    draw_log3(4);
+    draw_log1(log_sp + 5);
+    draw_log2(log_sp + 7);
+    draw_log3(log_sp + 4);
 }
 function draw_log1(speed){
        a1-=speed;
@@ -208,7 +208,7 @@ function draw_log3(speed){
 
 function move_fly() {
     fly.x = (Math.random() * (canvas.width));
-    fly.y = ((Math.random() * 485)+100);
+    fly.y = Math.floor((Math.random() * 485));
     m = fly.x;
 	n = fly.y;
 	draw_fly();
@@ -219,7 +219,7 @@ function draw_fly(){
 
 function move_lady() {
     lady.x = (Math.random() * (canvas.width));
-    lady.y = ((Math.random() * 485) +100);
+    lady.y = Math.floor((Math.random() * 485));
     ladyx = lady.x;
 	ladyy = lady.y;
 	draw_lady();

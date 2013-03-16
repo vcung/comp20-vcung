@@ -8,6 +8,8 @@ function init_stats() {
 	prev_score = 0;
 	frog_on_log = false;
     on_log= null;
+	veh_speed = 0;
+	log_speed = 0;
 }
 
 function init_car_coords(){
@@ -70,7 +72,6 @@ function init_log_coords(){
 		log2[i] = new Object;
 		log3[i] = new Object;
 	}
-
 	for (var j=0; j< 12; j++) { //set properties for log1s
 		log1[j].w = 83;
 		log1[j].h = 40;
