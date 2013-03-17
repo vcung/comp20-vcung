@@ -19,13 +19,13 @@ function init_game() {
 			frog_home=0;
 			fill_bg();
 			draw_bg();
-		    draw_stats(lives, lvl, score, highsc);
+		        draw_stats(lives, lvl, score, highsc);
 			init_coords();
-		    draw_vehicles(0);
+		        draw_vehicles(0);
 			draw_logs(0);
-            draw_frog(0, 0);
+                        draw_frog(0, 0);
 			frogh=24;
-	        frogw=17;
+	                frogw=17;
 			init_fly();
 			setInterval(move_fly, 2000);
 			init_lady();
@@ -57,20 +57,19 @@ function game_loop() {
     if (lives != 0) {
         timer = timer + time.getMinutes();
         var now = Date.now();
-        var diffInTime = now - then;
-		
-		redraw_bg();
+        var diffInTime = now - then;	
+	redraw_bg();
         draw_logs(log_speed);
-	    draw_vehicles(veh_speed);
-		draw_frog(x,y);
-	    update(diffInTime / 1000);
-		get_life();
-		draw_fly(m, n);
-		draw_lady(ladyx, ladyy);
-	    then=now;
+	draw_vehicles(veh_speed);
+	draw_frog(x,y);
+	update(diffInTime / 1000);
+	get_life();
+	draw_fly(m, n);
+	draw_lady(ladyx, ladyy);
+	then=now;
     }
     else {
-		 lost_game();
+	lost_game();
     }
 }
 then = Date.now();
@@ -81,8 +80,7 @@ function update(change) {
 	}
     if (38 in keyDown) { //up key pressed
 	    if(y>-405)  {
-			y-=10;
-			score +=70*change;
+			y -=70*change;
 			if (y<-390){
 			    frog_home +=1;
 				if (frog_home>=5) {
@@ -160,9 +158,9 @@ function detect_collision(){
 //returns true if frogger has collided with given object
 function has_collided(obj) {
     frogx= 175 + x;
-	frogy= 485 + y;	 
+    frogy= 485 + y;	 
 	 //collision from right
-	if (frogx + frogw < obj.x) {
+    if (frogx + frogw < obj.x) {
       return false;
     }
 	//front-on collision
@@ -183,17 +181,18 @@ function has_collided(obj) {
 //returns true if frog is on log, false otherwise
 function fell_into_water(obj) {
     frogx= 175 + x;
-	frogy= 485 + y;	
-	 //collision from right
-	if ((frogx + frogw >= obj.x)&&(frogy + frogh >= obj.y)) {
-	    if ((frogx <= obj.x + obj.w)&&(frogy <= obj.y + obj.h)) {
+    frogy= 485 + y;	
+  //collision from right
+    if ((frogx + frogw >= obj.x)&&(frogy + frogh >= obj.y)) {
+         if ((frogx <= obj.x + obj.w)&&(frogy <= obj.y + obj.h)) {
              frog_on_log = true;
-	         on_log = obj;
-			 return false;		 
-		}
+             on_log = obj;
+	     return false;		 
+	}
     }
     return true;
 }
+
 //updates stats to reflect loss of life
 function lost_life(){
 	lives--;
@@ -202,19 +201,19 @@ function lost_life(){
 //resets game, updates highscore if appropriate
 function lost_game() {
     score += Math.round(time_left*10);
-	if (score>highsc){
-	    highsc = score;
-	}
-	x=0;
-	y=0;
-	score = 0;
-	lives = 4;
-	lvl =1;
-	veh_speed = 0;
-	log_speed = 0;
-	frog_on_log = false;
-	timer = 0;
-	time = new Date();
+    if (score>highsc){
+        highsc = score;
+    }
+    x=0;
+    y=0;
+    score = 0;
+    lives = 4;
+    lvl =1;
+    veh_speed = 0;
+    log_speed = 0;
+    frog_on_log = false;
+    timer = 0;
+    time = new Date();
     draw_stats(lives, lvl, score, highsc);
 }
 
@@ -226,24 +225,24 @@ function move_with_log(log) {
 //player gets another life if they scored an additional 10000
 function get_life() {
     if (score >= (prev_score + 10000)) {
-	    if (lives < 4) {
-		    lives++;
-			draw_stats(lives, lvl, score, highsc);
-		}	
-        prev_score = score;
-	}
+         if (lives < 4) {
+             lives++;
+	     draw_stats(lives, lvl, score, highsc);
+	}	
+   prev_score = score;
+   }
 }
 
 //increases speed of cars and logs, updates game for new level
 function next_level(){
     score += Math.round(time_left*10);
-	x=0;
-	y=0;
-	lvl++;
-	veh_speed+=2;
-	log_speed+=2;
-	frog_on_log = false;
+    x=0;
+    y=0;
+    lvl++;
+    veh_speed+=2;
+    log_speed+=2;
+    frog_on_log = false;
     draw_stats(lives, lvl, score, highsc);
-	timer = 0;
-	time = new Date();
+    timer = 0;
+    time = new Date();
 }
