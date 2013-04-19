@@ -58,18 +58,18 @@ function game_loop() {
         timer = timer + time.getMinutes();
         var now = Date.now();
         var diffInTime = now - then;	
-	redraw_bg();
-        draw_logs(log_speed);
-	draw_vehicles(veh_speed);
-	draw_frog(x,y);
-	update(diffInTime / 1000);
-	get_life();
-	draw_fly(m, n);
-	draw_lady(ladyx, ladyy);
-	then=now;
+		redraw_bg();
+		draw_logs(log_speed);
+		draw_vehicles(veh_speed);
+		draw_frog(x,y);
+		update(diffInTime / 1000);
+		get_life();
+		draw_fly(m, n);
+		draw_lady(ladyx, ladyy);
+		then=now;
     }
     else {
-	lost_game();
+		lost_game();
     }
 }
 then = Date.now();
@@ -131,25 +131,47 @@ function detect_collision(){
 			 y=0;
 			 draw_frog();
 			 return;
-	    }
+		 }
 	}
-	if (y<-210){
-		for (var i=0; i<12;i++) {
-			if (fell_into_water(log1[i])){
+	if (y<-215){
+	    frog_on_log=false;
+		var i = 0;
+	//	for (var i=0; i<12;i++) {
+	    while ((!frog_on_log)&&i<12){
+		    fell_into_water(log1[i]);
+		/*(	if (fell_into_water(log1[i])){
 				 lost_life();
 				 x=0;
 				 y=0;
 				 draw_frog();
 				 return;
-			}
+			}*/
+			i++;
 		}    
-		for (var i=0; i<10;i++) {
-			if (fell_into_water(log2[i])||fell_into_water(log3[i])){
-				 lost_life();
-				 x=0;
-				 y=0;
-				 draw_frog();
-				 return;
+		if (!frog_on_log){
+		    var i = 0;
+		    while ((!frog_on_log)&&i<10) {
+		//	for (var i=0; i<10;i++) {
+			fell_into_water(log2[i]);
+			fell_into_water(log3[i]);
+			//if (frog_on_log){
+				//break;
+			//}
+			/*	if (fell_into_water(log2[i])||fell_into_water(log3[i])){
+					 lost_life();
+					 x=0;
+					 y=0;
+					 draw_frog();
+					 return;
+				}*/
+				i++;
+			}
+	
+			if (!frog_on_log){
+				lost_life();
+				x=0;
+				y=0;
+				draw_frog();
 			}
 		}
 	}
@@ -182,15 +204,18 @@ function has_collided(obj) {
 function fell_into_water(obj) {
     frogx= 175 + x;
     frogy= 485 + y;	
-  //collision from right
-    if ((frogx + frogw >= obj.x)&&(frogy + frogh >= obj.y)) {
-         if ((frogx <= obj.x + obj.w)&&(frogy <= obj.y + obj.h)) {
+	var frogTop = frogy+ frogh;
+	
+	//check if frog is on log
+    if ((frogx + frogw >= obj.x)&&(frogx <= obj.x + obj.w)) {
+         if ((frogy <= obj.y + obj.h)&&(frogy + frogh >= obj.y)) {
              frog_on_log = true;
              on_log = obj;
-	     return false;		 
+	    // return false;		 
 	}
     }
-    return true;
+	
+   // return true;
 }
 
 //updates stats to reflect loss of life
@@ -219,7 +244,8 @@ function lost_game() {
 
 //moves frog at same pace and direction as log it is on
 function move_with_log(log) {
-    x = x - log.speed;
+   // x = x + log.speed;
+	
 }
 
 //player gets another life if they scored an additional 10000
