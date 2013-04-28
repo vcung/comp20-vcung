@@ -1,0 +1,51 @@
+<h1>Introduction</h1>
+   <p>Scorecenter is a server-side web application that maintains high scores for HTML5 games using 
+   Heroku, Node.js with the Express web framework, and MongoDB.</p>
+   
+   <p>We have been hired to evaluate and resolve potential security issues in the Scorecenter application
+   that would undermine the integrity of the product.</p>
+   
+   
+<h1>Methodology</h1> - Describe your methodology pen testing the application, including the tools that you used
+   <p>The Scorecenter site is located at </p>
+   <p>The vulnerabilities of the application was primarily tested with Paros,
+   a program that aids in web application security assessment by allowing
+   the interception and modification of all server-client HTTP and HTTPS data</p>
+<div>
+<h1>Abstract of Findings</h1>Provide an overview of all the security issues you identified. This section should be written for non-technical managers who do not have technical expertise and do not have time to read the entire document. Write this section using lay language.
+<p>Not everything from assignment 5 was implemented. There were no opportunity for black-box testing.
+The only opportunity for client communication with the program 
+is at the /submit.json page.</p>
+</div><div>
+<h1>Issues Found</h1> - For each issue that you find, document:
+Issue (e.g., database injection, really bad programming practice)
+<h2>No Server-side Validation</h2>
+<h3>Location</h3>
+<p>submit.json</p>
+<h3>Severity</h3><p class = "severity">HIGH</p>
+<h3>Description</h3><p>- found sending POST request using OWASP</p>
+<p>User can send in values of any length and can include nonsense numbers and symbols to the database.
+User can include in their POST any parameter and value because the entire body is inserted into
+the database, rather than specifying and only inserting the desired parameters. 
+As a result, the user can also control what nonsense shows up in the front page as all content 
+stored in the database is displayed as a JSON string. Script tags can be included in the input, 
+however code will not execute, so the application is safe is that regard.</p>
+<h3>Resolution</h3>
+<p>Sanitize input to contain desired characters.</p>
+</div>
+Location / page where issue was found
+Severity of issue (e.g., low, medium , or high). Justify your answer.
+Description of issue. How did you find it? A screenshot of problem is excellent.
+
+<h1>Resolution/concluuio</h1> How did you resolve the issue? Show code if possible.
+Conclusion - You can also list future considerations and recommendations with costs.
+
+(1 point) - Introduction
+(1 point) - Methodology
+(2 points) - Abstract of Findings
+(2 points) - Issues Found
+(2 points) - Technical analysis of issues found
+(1 point) - Conclusion
+(1 point) - README document exists; report is named 
+report.html in folder named security in private GitHub repo in gh-pages 
+and master branches
