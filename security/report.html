@@ -31,7 +31,8 @@ As a result, the user can also control what nonsense shows up in the front page 
 stored in the database is displayed as a JSON string. Script tags can be included in the input, 
 however code will not execute, so the application is safe is that regard.</p>
 <h3>Resolution</h3>
-<p>Sanitize input to contain desired characters.</p>
+<p>Sanitize input to contain desired characters. Inappropriate paramenters and values should be rejected and error
+messages should be displayed to notify user of validation errors and failure to POST. </p>
 </div>
 Location / page where issue was found
 Severity of issue (e.g., low, medium , or high). Justify your answer.
