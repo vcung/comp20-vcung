@@ -30,10 +30,10 @@ Unwanted messages and inappropriate entries can also be displayed in the front p
 <h3>Description</h3>
 <p>User can send in values of any length and can include nonsense numbers and symbols to the database.
 User can include in their POST any parameter and value because the entire body is inserted into
-the database, rather than specifying and only inserting the desired parameters. 
+the database, rather than specifying and only inserting the desired parameters.
 As a result, the user can also control what nonsense shows up in the front page as all content 
-stored in the database is displayed as a JSON string. Script tags can be included in the input, 
-however code will not execute, so the application is safe is that regard.</p>
+stored in the database is displayed as a JSON string. So something like <a href="front.html">this</a> can happen.
+Script tags can be included in the input, however code will not execute, so the application is safe is that regard.</p>
 <h3>Resolution</h3>
 <p>Sanitize input to contain desired characters. Inappropriate paramenters and values should be rejected and error
 messages should be displayed to notify user of validation errors and failure to POST. That way, the front page would only
