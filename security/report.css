@@ -1,0 +1,14 @@
+h2 {
+	font-style: oblique;
+	color: #800000;
+}
+
+h3 {
+	padding: none;
+	margin: none;
+}
+td {
+width: 25em;
+vertical-align: top;
+margin: 5px;
+}
